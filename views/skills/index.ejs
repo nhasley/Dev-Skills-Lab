@@ -1,11 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title><%= title %></title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title>Skills</title>
   </head>
   <body>
-    <h1><%= title %></h1>
-    <a href="/skills">Skills List</a>
+    <h1>Skills:</h1>
+    <br />
+    <% skills.forEach(function(skill,idx){ %>
+    <div>
+      <br />
+      <h3><%=skill%></h3>
+      <a href="/skills/<%=idx%>">click to edit</a>
+    </div>
+    <form action="/skills/<%=idx%>?_method=DELETE" method="post">
+      <button>Lost The Skill?</button>
+    </form>
+    <br />
+    <% }); %>
+    <br />
+    <form action="/skills" method="post">
+      <input type="text" name="newSkill" /><br /><button>Add skill</button>
+    </form>
   </body>
 </html>

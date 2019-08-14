@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get("/", function(req, res, next) {
-  res.render("index", { title: "Nova Skills List" });
+  res.render("index", { title: "My 1st CRUD-y website" });
 });
 
 module.exports = router;

@@ -1,12 +1,22 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Nova Skill</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <link rel="stylesheet" href="/stylesheets/style.css" />
+    <title><%=skills[0]%></title>
   </head>
   <body>
-    <h1>Skill #<%= skillNum %></h1>
-    <h3><%= skill.skill %></h3>
-    <!-- <h3>Complete: <%= skill.done ? 'Yes' : 'No' %></h3> -->
+    <h1>Skill <%=skills[1]%>:</h1>
+    <h1><%=skills[0]%></h1>
+    <form action="/skills/<%=skills[1]-1%>/edit?_method=PUT" method="post">
+      <input type="text" name="newSkill" placeholder="<%=skills[0]%>" />
+      <br />
+      <button>Submit change</button>
+    </form>
+    <form action="/skills">
+      <button>Looking Good</button>
+    </form>
   </body>
 </html>
