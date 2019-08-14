@@ -1,27 +1,54 @@
-var skills = require("../models/skills");
+var Skill = require("../models/skill");
 
-function index(req, res) {
-  res.render("skills/index", { skills: skills.gitAll() });
-}
-function show(req, res) {
-  res.render("skills/show", { skills: skills.gitOne(req.params.id) });
-}
-function create(req, res) {
-  skills.create(req.body.newSkill);
-  res.redirect("/skills");
-}
-function skillDelete(req, res) {
-  skills.deleteSkill(req.params.id);
-  res.redirect("/skills");
-}
-function update(req, res) {
-  skills.edit(req.params.id, req.body.newSkill);
-  res.redirect("/skills");
-}
 module.exports = {
   index,
   show,
+  new: newSkill,
   create,
-  delete: skillDelete,
+  delete: deleteSkill,
+  edit,
   update
 };
+
+function update(req, res) {
+  req.body.done = req.body.done === "on";
+  Skill.update(req.params.id, req.body);
+  res.redirect("/skills");
+}
+
+function edit(req, res) {
+  res.render("skills/edit", {
+    skill: Skill.getOne(req.params.id),
+    idx: req.params.id
+  });
+}
+
+function deleteSkill(req, res) {
+  Skill.deleteOne(req.params.id);
+  res.redirect("/skills");
+}
+
+function create(req, res) {
+  console.log(req.body);
+  req.body.done = false;
+  Skill.create(req.body);
+  res.redirect("/skills");
+}
+
+function newSkill(req, res) {
+  res.render("skills/new");
+}
+
+function index(req, res) {
+  res.render("skills/index", {
+    skills: Skill.getAll(),
+    time: req.time
+  });
+}
+
+function show(req, res) {
+  res.render("skills/show", {
+    skill: Skill.getOne(req.params.id),
+    skillNum: parseInt(req.params.id) + 1
+  });
+}
